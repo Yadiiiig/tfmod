@@ -1,4 +1,4 @@
-package lx
+package parser
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ type prs struct {
 	Content   []byte
 }
 
-func Parser(tokens []Token, content []byte) error {
+func Parse(tokens []Token, content []byte) error {
 	p := prs{tokens, len(tokens), content}
 
 	for k, v := range tokens {

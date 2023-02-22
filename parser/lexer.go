@@ -1,4 +1,4 @@
-package lx
+package parser
 
 import (
 	"bytes"
@@ -21,7 +21,7 @@ type lxr struct {
 	Pos Position
 }
 
-func RunLexer(file *models.File) ([]Token, error) {
+func Lexer(file *models.File) ([]Token, error) {
 	l := lxr{
 		Token:    "",
 		Total:    0,

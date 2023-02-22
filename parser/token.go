@@ -1,4 +1,4 @@
-package lx
+package parser
 
 type Token struct {
 	Type  int

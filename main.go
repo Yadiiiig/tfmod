@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/yadiiiig/tfmod/lx"
+	"github.com/yadiiiig/tfmod/parser"
 	"github.com/yadiiiig/tfmod/utils"
 )
 
@@ -14,7 +14,7 @@ func main() {
 		return
 	}
 
-	tokens, err := lx.RunLexer(file)
+	tokens, err := parser.Lexer(file)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -22,7 +22,7 @@ func main() {
 
 	fmt.Println()
 
-	err = lx.Parser(tokens, file.Content)
+	err = parser.Parse(tokens, file.Content)
 	if err != nil {
 		fmt.Println(err)
 		return

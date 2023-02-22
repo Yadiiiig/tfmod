@@ -1,4 +1,4 @@
-package lx
+package parser
 
 import (
 	"fmt"
@@ -62,7 +62,7 @@ func (p *prs) parse_resource_headers(start int) (string, string, error) {
 func (p *prs) parse_vars(start, end int) error {
 	for i := start + 1; i <= end; i++ {
 		if p.Tokens[i].Type == TOKEN_ASSIGN {
-			field := models.Field{}
+			field := models.Argument{}
 
 			nw, err := p.prev_newline(start, i)
 			if err != nil {
@@ -89,7 +89,7 @@ func (p *prs) parse_vars(start, end int) error {
 }
 
 // returns true if value is a structure def or an error
-func (p *prs) parse_var_type(start, end int, field *models.Field) (bool, error) {
+func (p *prs) parse_var_type(start, end int, field *models.Argument) (bool, error) {
 	for i := start + 1; i <= end; i++ {
 		switch p.Tokens[i].Type {
 		case TOKEN_VAR:
