@@ -1,10 +1,15 @@
 package models
 
 type Field struct {
-	Key  string
-	Type string
+	Key string
+
+	Type       int
+	CustomType string
+	Hardcoded  string
+
+	Data string
 
 	Edit bool
 
-	Data string
+	Childs []Field
 }

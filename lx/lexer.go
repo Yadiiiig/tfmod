@@ -86,6 +86,10 @@ func RunLexer(file *models.File) ([]Token, error) {
 			case TOKEN_ASSIGN:
 				l.add_token(tkn_type, true, "=")
 				continue
+
+			case TOKEN_POINT:
+				l.add_token(tkn_type, true, ".")
+				continue
 			}
 
 			if !l.InString {
