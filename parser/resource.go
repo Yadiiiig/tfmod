@@ -128,20 +128,41 @@ func (p *prs) parse_var(start, end int, field *models.Argument) (bool, error) {
 	return false, fmt.Errorf("could not find type decleration")
 }
 
-func (p *prs) parse_var_type(ind, end int, field *models.Argument) {
+func (p *prs) parse_var_type(ind, end int, field *models.Argument) (int, error) {
 	for i := ind + 1; i <= end; i++ {
 		switch p.Tokens[i].Type {
 		case TOKEN_POINT:
 			p.parse_var_type(i, end, field)
 
-			return
+			return 0, nil
 
 		case TOKEN_NEWLINE:
 			if p.Tokens[i-1].Type == TOKEN_POINT {
 				field.ReferenceValue = p.get_string(p.Tokens[i-1].Ind.End, p.Tokens[i].Ind.Start-1, true)
-				fmt.Println(field.ReferenceValue)
-				return
 			}
+
+			return 0, nil
+		case TOKEN_LEFT_R_BRACKET:
+			field.ParentObject = p.get_string(p.Tokens[i-1].Ind.End, p.Tokens[i].Ind.Start, true)
+
+			new_ind, err := p.parse_var_type(i, end, field)
+			if err != nil {
+				return 0, nil
+			}
+
+			i = new_ind
+
+		case TOKEN_QUOTE:
+			end_ind, tkn_ind, err := p.find_string_end(i)
+			if err != nil {
+				return 0, nil
+			}
+
+			field.ObjectValue = p.get_string(p.Tokens[i].Ind.End, end_ind, true)
+
+			return tkn_ind, nil
 		}
 	}
+
+	return 0, nil
 }

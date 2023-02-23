@@ -90,6 +90,14 @@ func Lexer(file *models.File) ([]Token, error) {
 			case TOKEN_POINT:
 				l.add_token(tkn_type, true, ".")
 				continue
+
+			case TOKEN_LEFT_R_BRACKET:
+				l.add_token(tkn_type, true, "[")
+				continue
+
+			case TOKEN_RIGHT_R_BRACKET:
+				l.add_token(tkn_type, true, "]")
+				continue
 			}
 
 			if !l.InString {

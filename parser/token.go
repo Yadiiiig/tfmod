@@ -47,6 +47,8 @@ var Keywords = map[string]int{
 var Chars = map[string]int{
 	"{": TOKEN_LEFT_C_BRACKET,
 	"}": TOKEN_RIGHT_C_BRACKET,
+	"[": TOKEN_LEFT_R_BRACKET,
+	"]": TOKEN_RIGHT_R_BRACKET,
 	".": TOKEN_POINT,
 	"=": TOKEN_ASSIGN,
 	`"`: TOKEN_QUOTE,

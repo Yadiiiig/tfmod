@@ -6,6 +6,7 @@ resource "google_compute_forwarding_rule" "default" {
   data                  = data.foo
   custom                = custom_type.bar
   hardcoded             = "Hello world"
+  timeout_sec         = var.health_check["timeout_sec"]
   example_bracket = {
     
   }

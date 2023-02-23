@@ -13,10 +13,11 @@ type Argument struct {
 	ReferenceValue string
 	Value          string
 
+	ParentObject string
+	ObjectValue  string
+
 	CustomType string
 	Hardcoded  string
 
 	Edit bool
-
-	Object []Argument
 }
