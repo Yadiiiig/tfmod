@@ -24,8 +24,10 @@ const (
 	TOKEN_CUSTOM_TYPE
 	TOKEN_HARDCODED_STRING
 
-	TOKEN_LEFT_BRACKET
-	TOKEN_RIGHT_BRACKET
+	TOKEN_LEFT_C_BRACKET
+	TOKEN_RIGHT_C_BRACKET
+	TOKEN_LEFT_R_BRACKET
+	TOKEN_RIGHT_R_BRACKET
 
 	TOKEN_POINT
 	TOKEN_ASSIGN
@@ -43,20 +45,22 @@ var Keywords = map[string]int{
 }
 
 var Chars = map[string]int{
-	"{": TOKEN_LEFT_BRACKET,
-	"}": TOKEN_RIGHT_BRACKET,
+	"{": TOKEN_LEFT_C_BRACKET,
+	"}": TOKEN_RIGHT_C_BRACKET,
 	".": TOKEN_POINT,
 	"=": TOKEN_ASSIGN,
 	`"`: TOKEN_QUOTE,
 }
 
 var DebugTokens = map[int]string{
-	TOKEN_RESOURCE:      "resource",
-	TOKEN_DATA:          "data",
-	TOKEN_VAR:           "var",
-	TOKEN_LEFT_BRACKET:  "{",
-	TOKEN_RIGHT_BRACKET: "}",
-	TOKEN_POINT:         ".",
-	TOKEN_ASSIGN:        "=",
-	TOKEN_QUOTE:         `"`,
+	TOKEN_RESOURCE:        "resource",
+	TOKEN_DATA:            "data",
+	TOKEN_VAR:             "var",
+	TOKEN_LEFT_C_BRACKET:  "{",
+	TOKEN_RIGHT_C_BRACKET: "}",
+	TOKEN_LEFT_R_BRACKET:  "[",
+	TOKEN_RIGHT_R_BRACKET: "]",
+	TOKEN_POINT:           ".",
+	TOKEN_ASSIGN:          "=",
+	TOKEN_QUOTE:           `"`,
 }

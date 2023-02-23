@@ -71,7 +71,7 @@ func (p *prs) parse_vars(start, end int) error {
 
 			field.Key = p.get_string(p.Tokens[nw].Ind.End, p.Tokens[i].Ind.Start, true)
 
-			struct_type, err := p.parse_var_type(i, end, &field)
+			struct_type, err := p.parse_var(i, end, &field)
 			if err != nil {
 				return err
 			}
@@ -89,12 +89,15 @@ func (p *prs) parse_vars(start, end int) error {
 }
 
 // returns true if value is a structure def or an error
-func (p *prs) parse_var_type(start, end int, field *models.Argument) (bool, error) {
+func (p *prs) parse_var(start, end int, field *models.Argument) (bool, error) {
 	for i := start + 1; i <= end; i++ {
 		switch p.Tokens[i].Type {
 		case TOKEN_VAR:
-			field.Type = TOKEN_VAR
+			field.Type = models.VARIABLE
 			field.Edit = true
+
+			p.parse_var_type(i, end, field)
+
 			return false, nil
 
 		case TOKEN_DATA:
@@ -106,7 +109,7 @@ func (p *prs) parse_var_type(start, end int, field *models.Argument) (bool, erro
 			field.CustomType = p.get_string(p.Tokens[start].Ind.End, p.Tokens[i].Ind.Start, true)
 			return false, nil
 
-		case TOKEN_LEFT_BRACKET:
+		case TOKEN_LEFT_C_BRACKET:
 			return true, nil
 
 		case TOKEN_QUOTE:
@@ -123,4 +126,22 @@ func (p *prs) parse_var_type(start, end int, field *models.Argument) (bool, erro
 	}
 
 	return false, fmt.Errorf("could not find type decleration")
+}
+
+func (p *prs) parse_var_type(ind, end int, field *models.Argument) {
+	for i := ind + 1; i <= end; i++ {
+		switch p.Tokens[i].Type {
+		case TOKEN_POINT:
+			p.parse_var_type(i, end, field)
+
+			return
+
+		case TOKEN_NEWLINE:
+			if p.Tokens[i-1].Type == TOKEN_POINT {
+				field.ReferenceValue = p.get_string(p.Tokens[i-1].Ind.End, p.Tokens[i].Ind.Start-1, true)
+				fmt.Println(field.ReferenceValue)
+				return
+			}
+		}
+	}
 }

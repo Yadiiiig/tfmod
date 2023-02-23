@@ -44,13 +44,13 @@ func (p *prs) find_bracket_combo(start int) (int, int, bool) {
 	start_index := 0
 
 	for i := start; i <= p.LenTokens; i++ {
-		if p.Tokens[i].Type == TOKEN_LEFT_BRACKET {
+		if p.Tokens[i].Type == TOKEN_LEFT_C_BRACKET {
 			if found == 0 {
 				start_index = i
 			}
 
 			found++
-		} else if p.Tokens[i].Type == TOKEN_RIGHT_BRACKET {
+		} else if p.Tokens[i].Type == TOKEN_RIGHT_C_BRACKET {
 			found--
 
 			if found == 0 {

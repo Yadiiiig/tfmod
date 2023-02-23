@@ -1,14 +1,22 @@
 package models
 
-type Argument struct {
-	Key   string
-	Value string
+const (
+	VARIABLE = iota
+	DATA
+	HARDCODED
+)
 
-	Type       int
+type Argument struct {
+	Type int
+
+	Key            string
+	ReferenceValue string
+	Value          string
+
 	CustomType string
 	Hardcoded  string
 
 	Edit bool
 
-	Childs []Argument
+	Object []Argument
 }
